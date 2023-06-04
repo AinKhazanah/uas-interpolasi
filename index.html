@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Interpolasi Linear</title>
+    <script>
+        function interpolasiLinear() {
+            var xKnown = [1, 2, 4, 7];
+            var yKnown = [3, 5, 8, 12];
+            var xInterp = [3, 5, 6];
+            var yInterp = [];
+
+            for (var i = 0; i < xInterp.length; i++) {
+                var x = xInterp[i];
+                var j = 0;
+
+                while (j < xKnown.length && xKnown[j] < x) {
+                    j++;
+                }
+
+                if (j > 0 && j < xKnown.length) {
+                    var x1 = xKnown[j - 1];
+                    var x2 = xKnown[j];
+                    var y1 = yKnown[j - 1];
+                    var y2 = yKnown[j];
+
+                    var y = y1 + ((y2 - y1) / (x2 - x1)) * (x - x1);
+                    yInterp.push(y);
+                } else {
+                    yInterp.push(null);
+                }
+            }
+
+            var result = document.getElementById("result");
+            result.innerHTML = "";
+
+            for (var i = 0; i < xInterp.length; i++) {
+                if (yInterp[i] !== null) {
+                    result.innerHTML += "Nilai interpolasi pada x = " + xInterp[i] + " adalah " + yInterp[i] + "<br>";
+                } else {
+                    result.innerHTML += "Nilai interpolasi pada x = " + xInterp[i] + " tidak dapat ditentukan" + "<br>";
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Interpolasi Linear</h1>
+
+    <button onclick="interpolasiLinear()">Hitung</button>
+
+    <h3>Hasil Interpolasi:</h3>
+    <div id="result"></div>
+</body>
+</html>
